@@ -19,7 +19,7 @@ fixed_data = [
     {"Task": "Part Order from Vendor", "Start": datetime(2026, 6, 15), "End": datetime(2026,10, 5)},
     {"Task": "ECM import from China", "Start": datetime(2026, 6, 15), "End": datetime(2026,9, 30)},
     {"Task": "Tools Setup for Factory", "Start": datetime(2026, 6, 15), "End": datetime(2026, 6, 21)},
-    {"Task": "Testing Equipment Setup", "Start": datetime(2026, 6, 21), "End": datetime(2026, 7, 23)},
+    {"Task": "Testing Equipment Setup", "Start": datetime(2026, 6, 21), "End": datetime(2026, 9, 30)},
     {"Task": "Safety Equipment", "Start": datetime(2026, 7, 24), "End": datetime(2026, 7, 26)},
     {"Task": "Dispenser Cabinet", "Start": datetime(2026, 8, 29), "End": datetime(2026, 9, 24)},
     {"Task": "Hose Testing Equipment", "Start": datetime(2026, 7, 26), "End": datetime(2026, 9, 30)},     
