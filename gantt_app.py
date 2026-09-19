@@ -83,9 +83,26 @@ if not edited_df.empty:
         task_record = edited_df[edited_df["Task"] == task].iloc[0]
         start = pd.to_datetime(task_record["Start"])
         end = pd.to_datetime(task_record["End"])
+        duration_days = (end - start).days
+
+        # For very short tasks, place labels outside the bar to avoid overlap.
+        if duration_days <= 7:
+            start_x = start - pd.Timedelta(days=1)
+            end_x = end + pd.Timedelta(days=1)
+            start_anchor = "right"
+            end_anchor = "left"
+            start_shift = -4
+            end_shift = 4
+        else:
+            start_x = start
+            end_x = end
+            start_anchor = "left"
+            end_anchor = "right"
+            start_shift = 4
+            end_shift = -4
 
         fig.add_annotation(
-            x=start,
+            x=start_x,
             y=task,
             text=start.strftime("%d %b"),
             showarrow=False,
@@ -95,14 +112,14 @@ if not edited_df.empty:
             borderwidth=1,
             xref="x",
             yref="y",
-            xanchor="left",
+            xanchor=start_anchor,
             yanchor="middle",
-            xshift=4,
+            xshift=start_shift,
             yshift=0
         )
 
         fig.add_annotation(
-            x=end,
+            x=end_x,
             y=task,
             text=end.strftime("%d %b"),
             showarrow=False,
@@ -112,9 +129,9 @@ if not edited_df.empty:
             borderwidth=1,
             xref="x",
             yref="y",
-            xanchor="right",
+            xanchor=end_anchor,
             yanchor="middle",
-            xshift=-4,
+            xshift=end_shift,
             yshift=0
         )
 
