@@ -26,7 +26,8 @@ fixed_data = [
     {"Task": "Assembly", "Start": datetime(2026, 10, 10), "End": datetime(2026, 10, 15)},
     {"Task": "Dispenser Testing", "Start": datetime(2026, 10, 15), "End": datetime(2026, 10, 20)},
     {"Task": "Rain Testing Area", "Start": datetime(2026, 10, 25), "End": datetime(2026, 10, 30)},
-    {"Task": "Dispenser Certification", "Start": datetime(2026, 8, 15), "End": datetime(2026, 12, 8)},
+    {"Task": "Finalization of costing", "Start": datetime(2026, 10, 15), "End": datetime(2026, 10, 30)},
+    {"Task": "Dispenser Certification", "Start": datetime(2026, 10, 20), "End": datetime(2026, 12, 15)},
 ]
 
 df_initial = pd.DataFrame(fixed_data)
