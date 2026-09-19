@@ -25,9 +25,8 @@ fixed_data = [
     {"Task": "Hose Testing Equipment", "Start": datetime(2026, 7, 26), "End": datetime(2026,10, 5)},     
     {"Task": "Assembly", "Start": datetime(2026, 10, 10), "End": datetime(2026, 10, 15)},
     {"Task": "Dispenser Testing", "Start": datetime(2026, 10, 15), "End": datetime(2026, 10, 20)},
-    {"Task": "Rain Testing Area", "Start": datetime(2026, 10, 15), "End": datetime(2026, 10, 30)},
-    {"Task": "Finalization of costing", "Start": datetime(2026, 10, 15), "End": datetime(2026, 10, 30)},
-    {"Task": "Dispenser Certification", "Start": datetime(2026, 10, 20), "End": datetime(2026, 12, 15)},
+    {"Task": "Rain Testing Area", "Start": datetime(2026, 10, 25), "End": datetime(2026, 10, 30)},
+    {"Task": "Dispenser Certification", "Start": datetime(2026, 8, 15), "End": datetime(2026, 12, 8)},
 ]
 
 df_initial = pd.DataFrame(fixed_data)
@@ -77,6 +76,29 @@ if not edited_df.empty:
             line_color="rgba(100, 100, 100, 0.35)",
             line_width=1,
             line_dash="dot"
+        )
+
+    # Add task start/end date labels inside each bar
+    for task in tasks:
+        task_record = edited_df[edited_df["Task"] == task].iloc[0]
+        start = pd.to_datetime(task_record["Start"])
+        end = pd.to_datetime(task_record["End"])
+        mid_date = start + (end - start) / 2
+
+        fig.add_annotation(
+            x=mid_date,
+            y=task,
+            text=f"{start.strftime('%d %b')}<br>{end.strftime('%d %b')}",
+            showarrow=False,
+            font=dict(size=10, color="#333333"),
+            bgcolor="rgba(255,255,255,0.75)",
+            bordercolor="rgba(0,0,0,0.15)",
+            borderwidth=1,
+            align="center",
+            xref="x",
+            yref="y",
+            xanchor="center",
+            yanchor="middle"
         )
 
     fig.update_layout(
