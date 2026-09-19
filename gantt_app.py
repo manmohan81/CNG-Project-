@@ -64,6 +64,21 @@ if not edited_df.empty:
         category_orders={"Task": tasks[::1]} # This puts the first item of 'tasks' at the TOP
     )
 
+    # Add monthly vertical guide lines across the chart
+    month_starts = pd.date_range(
+        start=edited_df["Start"].min().to_period("M").to_timestamp(),
+        end=edited_df["End"].max().to_period("M").to_timestamp(),
+        freq="MS"
+    )
+
+    for month_start in month_starts:
+        fig.add_vline(
+            x=month_start,
+            line_color="rgba(100, 100, 100, 0.35)",
+            line_width=1,
+            line_dash="dot"
+        )
+
     fig.update_layout(
         showlegend=False,
         height=600,
@@ -71,12 +86,17 @@ if not edited_df.empty:
         yaxis_title="",
         margin=dict(l=200),
 
-
         xaxis=dict(
             showline=True,
             linecolor="lightgray",
             linewidth=2,
-            mirror=False
+            mirror=False,
+            type="date",
+            tickformat="%d %b %Y",
+            tickangle=-30,
+            showgrid=True,
+            gridcolor="#e6e6e6",
+            gridwidth=1
         ),
         yaxis=dict(
             showline=True,
@@ -88,7 +108,6 @@ if not edited_df.empty:
             zeroline=False,
             mirror=False
         )
-
     )
 
     st.plotly_chart(fig, use_container_width=True)
