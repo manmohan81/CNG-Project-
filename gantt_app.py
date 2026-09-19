@@ -52,7 +52,7 @@ if not edited_df.empty:
     # REVERSE the task list for the chart
     # index 0 (2D/3D model) will be at the TOP
     tasks = edited_df["Task"].unique().tolist()
-    
+
     fig = px.timeline(
         edited_df,
         x_start="Start",
@@ -78,27 +78,44 @@ if not edited_df.empty:
             line_dash="dot"
         )
 
-    # Add task start/end date labels inside each bar
+    # Add date labels at the start and end of each task bar
     for task in tasks:
         task_record = edited_df[edited_df["Task"] == task].iloc[0]
         start = pd.to_datetime(task_record["Start"])
         end = pd.to_datetime(task_record["End"])
-        mid_date = start + (end - start) / 2
 
         fig.add_annotation(
-            x=mid_date,
+            x=start,
             y=task,
-            text=f"{start.strftime('%d %b')}<br>{end.strftime('%d %b')}",
+            text=start.strftime("%d %b"),
             showarrow=False,
-            font=dict(size=10, color="#333333"),
+            font=dict(size=9, color="#333333"),
             bgcolor="rgba(255,255,255,0.75)",
             bordercolor="rgba(0,0,0,0.15)",
             borderwidth=1,
-            align="center",
             xref="x",
             yref="y",
-            xanchor="center",
-            yanchor="middle"
+            xanchor="left",
+            yanchor="middle",
+            xshift=4,
+            yshift=0
+        )
+
+        fig.add_annotation(
+            x=end,
+            y=task,
+            text=end.strftime("%d %b"),
+            showarrow=False,
+            font=dict(size=9, color="#333333"),
+            bgcolor="rgba(255,255,255,0.75)",
+            bordercolor="rgba(0,0,0,0.15)",
+            borderwidth=1,
+            xref="x",
+            yref="y",
+            xanchor="right",
+            yanchor="middle",
+            xshift=-4,
+            yshift=0
         )
 
     fig.update_layout(
